@@ -15,21 +15,25 @@ namespace fukusyu0607
         private static Random rand = new Random();//←疑似乱数
                                                   //ランダムのシード(種)を指定して初期化したら
                                                   //それを使い続ける
-        int vx = rand.Next(-10, 11);
-        int vy = rand.Next(-10, 11);
 
-        int ux = rand.Next(-10, 11);
-        int uy = rand.Next(-10, 11);
-
-        int wx = rand.Next(-10, 11);
-        int wy = rand.Next(-10, 11);
+        
+        //配列
+        int[] velx = new int[3];
+        int[] vely = new int[3];
 
         public Form1()
         {
             InitializeComponent();
-            
-            //以下に、label1.Leftとlabel1.Topの座標をランダムで求めよ
-            label1.Left = rand.Next(ClientSize.Width - label1.Width);
+
+            for (int i = 0; i < 3; i++)
+            {
+                //iが0～9に変化しながら10回繰り返す
+                velx[i] = rand.Next(-10, 31);
+                vely[i] = rand.Next(-10, 31);
+            }
+
+                //以下に、label1.Leftとlabel1.Topの座標をランダムで求めよ
+                label1.Left = rand.Next(ClientSize.Width - label1.Width);
             label1.Top = rand.Next(ClientSize.Height - label1.Height);
 
             label2.Left = rand.Next(ClientSize.Width - label2.Width);
@@ -41,63 +45,63 @@ namespace fukusyu0607
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label1.Left += vx;
-            label1.Top += vy;
+            label1.Left += velx[0];
+            label1.Top += vely[0];
 
 
             if (label1.Left < 0)
             {
-                vx = Math.Abs(vx);
+                velx[0] = Math.Abs(velx[0]);
             }
             if (label1.Top < 0)
             {
-                vy = Math.Abs(vy);
+                vely[0] = Math.Abs(vely[0]);
             }
             if (label1.Left > ClientSize.Width - label1.Width) 
             {
-                vx = -Math.Abs(vx);
+                velx[0] = -Math.Abs(velx[0]);
             }
             if (label1.Top > ClientSize.Height - label1.Height)  
             {
-                vy = -Math.Abs(vy);
+                vely[0] = -Math.Abs(vely[0]);
             }
 
-            label2.Left += ux;
-            label2.Top += uy;
+            label2.Left += velx[1];
+            label2.Top += vely[1];
             if (label2.Left < 0)
             {
-                ux = Math.Abs(ux);
+                velx[1] = Math.Abs(velx[1]);
             }
             if (label2.Top < 0)
             {
-                uy = Math.Abs(uy);
+                vely[1] = Math.Abs(vely[1]);
             }
             if (label2.Left > ClientSize.Width - label2.Width)
             {
-                ux = -Math.Abs(ux);
+                velx[1] = -Math.Abs(velx[1]);
             }
             if (label2.Top > ClientSize.Height - label2.Height)
             {
-                uy = -Math.Abs(uy);
+                vely[1] = -Math.Abs(vely[1]);
             }
 
-            label3.Left += wx;
-            label3.Top += wy;
+            label3.Left += velx[2];
+            label3.Top += vely[2];
             if (label3.Left < 0)
             {
-                wx = Math.Abs(wx);
+                velx[2] = Math.Abs(velx[2]);
             }
             if (label3.Top < 0)
             {
-                wy = Math.Abs(wy);
+                vely[2] = Math.Abs(vely[2]);
             }
             if (label3.Left > ClientSize.Width - label3.Width)
             {
-                wx = -Math.Abs(wx);
+                velx[2] = -Math.Abs(velx[2]);
             }
             if (label3.Top > ClientSize.Height - label3.Height)
             {
-                wy = -Math.Abs(wy);
+                vely[2] = -Math.Abs(vely[2]);
             }
             //マウスと重なった時、タイマーを止める
             Point p = PointToClient(MousePosition);
