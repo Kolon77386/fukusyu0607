@@ -22,11 +22,9 @@ namespace fukusyu0607
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Text=MousePosition.X+", "+MousePosition.Y;
-            Point p=PointToClient(MousePosition);
-
             label1.Left += vx;
             label1.Top += vy;
+
 
             if (label1.Left < 0)
             {
@@ -43,6 +41,16 @@ namespace fukusyu0607
             if (label1.Top > ClientSize.Height - label1.Height)  
             {
                 vy = -Math.Abs(vy);
+            }
+            //マウスと重なった時、タイマーを止める
+            Point p = PointToClient(MousePosition);
+            if (   (p.X>=label1.Left)
+                && (p.X<label1.Right)
+                && (p.Y>=label1.Top)
+                && (p.Y<label1.Bottom)
+                )
+            {
+                timer1.Enabled=false;
             }
         }
 
